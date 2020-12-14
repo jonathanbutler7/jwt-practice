@@ -99,9 +99,8 @@ app.get(
 app.get(
   '/getUser',
   passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-
-    console.log(req.headers)
+  async (req, res) => {
+    console.log(req.user);
     res.send(req.user);
   }
 );

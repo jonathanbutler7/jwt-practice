@@ -12,7 +12,7 @@ class AuthenticatedComponent extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const jwt = getJwt();
     if (!jwt) {
       this.props.history.push('/login');
@@ -33,19 +33,24 @@ class AuthenticatedComponent extends Component {
         Authorization: `bearer ${jwt}`,
       },
     };
-
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        localStorage.removeItem('cool-jwt');
-        this.props.history.push('/login');
-        
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    try {
+      const response = await axios(config)
+      console.log(response)
+      this.setState({user: 'poop'})
+    } catch (error) {
+      console.error('frig', error)
+    }
+    // axios(config)
+    //   .then(function (response) {
+    //     this.setState({ user: 'name' });
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
   }
   render() {
+    console.log(this.state.user);
     if (this.state.user === undefined) {
       return (
         <div>
