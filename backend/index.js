@@ -3,6 +3,7 @@ dotenv.config();
 const express = require('express');
 const app = new express();
 const passport = require('passport');
+const cors = require('cors');
 const passportJWT = require('passport-jwt');
 const JwtStrategy = passportJWT.Strategy;
 const ExtractJwt = passportJWT.ExtractJwt;
@@ -35,7 +36,7 @@ const strategy = new JwtStrategy(opts, (payload, next) => {
       next(null, user);
     });
 });
-
+app.use(cors());
 passport.use(strategy);
 app.use(passport.initialize());
 app.use(
@@ -44,7 +45,7 @@ app.use(
   })
 );
 app.use(parser.json());
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 app.get('/', (req, res) => {
   res.send('sup');
@@ -95,4 +96,16 @@ app.get(
   }
 );
 
-app.listen(PORT);
+app.get(
+  '/getUser',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+
+    console.log(req.headers)
+    res.send(req.user);
+  }
+);
+
+app.listen(PORT, () => {
+  console.log(`Server listening at http://localhost:${PORT}`);
+});
