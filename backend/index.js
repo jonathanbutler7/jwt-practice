@@ -101,7 +101,7 @@ app.get(
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     console.log(req.user);
-    res.send(req.user);
+    return res.send(res.user);
   }
 );
 

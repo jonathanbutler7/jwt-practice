@@ -1,30 +1,25 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
 
-export default function Login() {
-  const [email, setEmail] = useState('test@test.com');
-  const [password, setPassword] = useState('password');
-  const history = useHistory();
+export default function SignUp() {
+  const [email, setEmail] = useState('jonathan@jonathan.com');
+  const [password, setPassword] = useState('jonathan');
 
   async function submit(e) {
     e.preventDefault();
-    console.log('submitting');
-    const url = 'http://localhost:5000/getToken';
+    const url = 'http://localhost:5000/seedUser';
     const body = { email, password };
     try {
       const response = await axios.post(url, body);
       console.log(response);
-      localStorage.setItem('cool-jwt', response.data);
-      history.push('/protected');
     } catch (error) {
       console.error(error);
     }
   }
-  
+
   return (
     <div>
-      <h5>Login</h5>
+      <h5>Sign up</h5>
       <form onSubmit={(e) => submit(e)}>
         <label htmlFor='email'>
           email

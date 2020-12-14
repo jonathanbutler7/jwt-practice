@@ -18,14 +18,6 @@ class AuthenticatedComponent extends Component {
       this.props.history.push('/login');
     }
 
-    // Axios.get('/getUser', { headers: { Authorization: `bearer ${jwt}` } })
-    //   .then((res) => res.setState({ user: res.data }))
-    //   .catch((err) => {
-    //     localStorage.removeItem('cool-jwt');
-    //     this.props.history.push('/login');
-    //     console.error('your frig up is', err);
-    //   });
-
     var config = {
       method: 'get',
       url: 'http://localhost:5000/getUser',
@@ -34,20 +26,12 @@ class AuthenticatedComponent extends Component {
       },
     };
     try {
-      const response = await axios(config)
-      console.log(response)
-      this.setState({user: 'poop'})
+      const response = await axios(config);
+      console.log(response);
+      this.setState({ user: 'manualusername' });
     } catch (error) {
-      console.error('frig', error)
+      console.error('frig', error);
     }
-    // axios(config)
-    //   .then(function (response) {
-    //     this.setState({ user: 'name' });
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
   }
   render() {
     console.log(this.state.user);
