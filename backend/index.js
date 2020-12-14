@@ -96,10 +96,6 @@ app.get(
   }
 );
 
-app.get('/fun', (req, res) => {
-  res.send('what up')
-})
-
 app.get(
   '/getUser',
   passport.authenticate('jwt', { session: false }),
