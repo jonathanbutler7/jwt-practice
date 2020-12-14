@@ -32,7 +32,7 @@ const strategy = new JwtStrategy(opts, (payload, next) => {
   // todo: get user from db
   const user = User.forge({ id: payload.id })
     .fetch()
-    .then((res) => {
+    .then((user) => {
       next(null, user);
     });
 });

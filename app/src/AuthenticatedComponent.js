@@ -28,7 +28,7 @@ class AuthenticatedComponent extends Component {
     try {
       const response = await axios(config);
       console.log(response);
-      this.setState({ user: 'manualusername' });
+      this.setState({ user: response.data.email });
     } catch (error) {
       console.error('frig', error);
     }
