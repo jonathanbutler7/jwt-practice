@@ -21,14 +21,19 @@ export default function Login() {
       console.error(error);
     }
   }
-  
+  console.log(email);
   return (
     <div>
       <h5>Login</h5>
       <form onSubmit={(e) => submit(e)}>
         <label htmlFor='email'>
           email
-          <input type='text' name='email' value={email} onChange={setEmail} />
+          <input
+            type='text'
+            name='email'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </label>
         <label htmlFor='password'>
           password
@@ -36,7 +41,7 @@ export default function Login() {
             type='password'
             name='password'
             value={password}
-            onChange={setPassword}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </label>
         <button type='submit'>submit</button>

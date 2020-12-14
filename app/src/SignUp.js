@@ -23,7 +23,12 @@ export default function SignUp() {
       <form onSubmit={(e) => submit(e)}>
         <label htmlFor='email'>
           email
-          <input type='text' name='email' value={email} onChange={setEmail} />
+          <input
+            type='text'
+            name='email'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </label>
         <label htmlFor='password'>
           password
@@ -31,7 +36,7 @@ export default function SignUp() {
             type='password'
             name='password'
             value={password}
-            onChange={setPassword}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </label>
         <button type='submit'>submit</button>
