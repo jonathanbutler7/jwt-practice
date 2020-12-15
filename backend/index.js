@@ -8,20 +8,8 @@ const passportJWT = require('passport-jwt');
 const JwtStrategy = passportJWT.Strategy;
 const ExtractJwt = passportJWT.ExtractJwt;
 const parser = require('body-parser');
-const knex = require('knex');
-const knexDb = knex({
-  client: 'pg',
-  connection: 'postgresql://postgres@localhost/jwt_test',
-});
-const bookshelf = require('bookshelf');
-const securePassword = require('bookshelf-secure-password');
-const db = bookshelf(knexDb);
-db.plugin(securePassword);
+const loginRouter = require('./login-router');
 const jwt = require('jsonwebtoken');
-const User = db.Model.extend({
-  tableName: 'login_user',
-  hasSecurePassword: true,
-});
 
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -46,23 +34,23 @@ app.use(
 );
 app.use(parser.json());
 const PORT = process.env.PORT || 5000;
-
+app.use('/login', loginRouter);
 app.get('/', (req, res) => {
   res.send('sup');
 });
 
-app.post('/seedUser', (req, res) => {
-  if (!req.body.email || !req.body.password) {
-    return res.state(401).send('no fields');
-  }
-  const user = new User({
-    email: req.body.email,
-    password: req.body.password,
-  });
-  user.save().then(() => {
-    res.send('ok');
-  });
-});
+// app.post('/seedUser', (req, res) => {
+//   if (!req.body.email || !req.body.password) {
+//     return res.state(401).send('no fields');
+//   }
+//   const user = new User({
+//     email: req.body.email,
+//     password: req.body.password,
+//   });
+//   user.save().then(() => {
+//     res.send('ok');
+//   });
+// });
 
 app.post('/getToken', (req, res) => {
   if (!req.body.email || !req.body.password) {

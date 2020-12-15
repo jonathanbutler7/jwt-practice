@@ -2,10 +2,10 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "jwt-backend",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "mocha test/setup.js test/test-workers.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
