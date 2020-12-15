@@ -1,12 +1,13 @@
 const dotenv = require('dotenv');
 dotenv.config();
+const { PORT } = require('./config');
 const express = require('express');
 const app = new express();
-const cors = require('cors');
-const parser = require('body-parser');
 const routes = require('./routes/index');
 const passport = require('./config/passport');
-const { PORT } = require('./config');
+const cors = require('cors');
+const parser = require('body-parser');
+
 app.use(cors());
 app.use(parser.json());
 app.use(passport.initialize());
