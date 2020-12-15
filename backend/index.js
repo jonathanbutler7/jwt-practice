@@ -9,7 +9,7 @@ const JwtStrategy = passportJWT.Strategy;
 const ExtractJwt = passportJWT.ExtractJwt;
 const parser = require('body-parser');
 const loginRouter = require('./login-router');
-const jwt = require('jsonwebtoken');
+
 
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -35,46 +35,8 @@ app.use(
 app.use(parser.json());
 const PORT = process.env.PORT || 5000;
 app.use('/login', loginRouter);
-app.get('/', (req, res) => {
-  res.send('sup');
-});
 
-// app.post('/seedUser', (req, res) => {
-//   if (!req.body.email || !req.body.password) {
-//     return res.state(401).send('no fields');
-//   }
-//   const user = new User({
-//     email: req.body.email,
-//     password: req.body.password,
-//   });
-//   user.save().then(() => {
-//     res.send('ok');
-//   });
-// });
 
-app.post('/getToken', (req, res) => {
-  if (!req.body.email || !req.body.password) {
-    return res.status(401).send('Fields not sent');
-  }
-
-  User.forge({ email: req.body.email })
-    .fetch()
-    .then((result) => {
-      if (!result) {
-        return res.status(400).send('user not found');
-      }
-      result
-        .authenticate(req.body.password)
-        .then((user) => {
-          const payload = { id: user.id };
-          const token = jwt.sign(payload, process.env.SECRET_OR_KEY);
-          res.send(token);
-        })
-        .catch((err) => {
-          return res.status(401).send(err);
-        });
-    });
-});
 
 app.get(
   '/protected',
