@@ -1,41 +1,8 @@
 const express = require('express');
+const User = require('../models/user');
+const passport = require('../config/passport');
 const loginRouter = express.Router();
-const bookshelf = require('bookshelf');
-const knex = require('knex');
 const jwt = require('jsonwebtoken');
-const passport = require('passport');
-const passportJWT = require('passport-jwt');
-const JwtStrategy = passportJWT.Strategy;
-const ExtractJwt = passportJWT.ExtractJwt;
-loginRouter.use(passport.initialize());
-const opts = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.SECRET_OR_KEY,
-};
-const strategy = new JwtStrategy(opts, (payload, next) => {
-  // todo: get user from db
-  const user = User.forge({ id: payload.id })
-    .fetch()
-    .then((user) => {
-      next(null, user);
-    });
-});
-passport.use(strategy);
-const knexDb = knex({
-  client: 'pg',
-  connection: 'postgresql://postgres@localhost/jwt_test',
-});
-const db = bookshelf(knexDb);
-const securePassword = require('bookshelf-secure-password');
-db.plugin(securePassword);
-const User = db.Model.extend({
-  tableName: 'login_user',
-  hasSecurePassword: true,
-});
-
-loginRouter.get('/', (req, res) => {
-  res.send('sup');
-});
 
 loginRouter.post('/seedUser', (req, res) => {
   if (!req.body.email || !req.body.password) {
