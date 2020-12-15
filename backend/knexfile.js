@@ -1,8 +1,10 @@
-// Update with your config settings.
+const { DATABASE_URL } = require('./config');
 
-module.exports = {
+const db = {
   development: {
     client: 'pg',
-    connection: 'postgresql://postgres@localhost/jwt_test',
+    connection: DATABASE_URL,
   },
 };
+
+module.exports = db;
