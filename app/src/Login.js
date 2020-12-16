@@ -9,14 +9,13 @@ export default function Login() {
 
   async function submit(e) {
     e.preventDefault();
-    console.log('submitting');
     const url = 'http://localhost:9000/login/getToken';
     const body = { email, password };
     try {
       const response = await axios.post(url, body);
-      console.log(response);
       localStorage.setItem('cool-jwt', response.data);
       history.push('/protected');
+      return response;
     } catch (error) {
       console.error(error);
     }
