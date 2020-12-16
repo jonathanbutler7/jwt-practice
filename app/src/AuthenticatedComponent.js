@@ -16,18 +16,18 @@ class AuthenticatedComponent extends Component {
     const jwt = getJwt();
     if (!jwt) {
       this.props.history.push('/login');
+      alert('please log in to access');
     }
 
     var config = {
       method: 'get',
-      url: 'http://localhost:5000/getUser',
+      url: 'http://localhost:9000/login/getUser',
       headers: {
         Authorization: `bearer ${jwt}`,
       },
     };
     try {
       const response = await axios(config);
-      console.log(response);
       this.setState({ user: response.data.email });
     } catch (error) {
       console.error('frig', error);

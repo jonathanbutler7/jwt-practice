@@ -7,7 +7,7 @@ export default function SignUp() {
 
   async function submit(e) {
     e.preventDefault();
-    const url = 'http://localhost:5000/seedUser';
+    const url = 'http://localhost:9000/login/seedUser';
     const body = { email, password };
     try {
       const response = await axios.post(url, body);

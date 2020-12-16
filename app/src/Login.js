@@ -10,7 +10,7 @@ export default function Login() {
   async function submit(e) {
     e.preventDefault();
     console.log('submitting');
-    const url = 'http://localhost:5000/getToken';
+    const url = 'http://localhost:9000/login/getToken';
     const body = { email, password };
     try {
       const response = await axios.post(url, body);
