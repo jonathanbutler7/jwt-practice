@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { getJwt } from './helpers';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 export default function AuthF(props) {
   const [user, setUser] = useState(undefined);
   const jwt = getJwt();
-
+  const history = useHistory();
+  
   useEffect(() => {
     if (!jwt) {
-      window.location.href = '/login';
+      history.push('/login');
       alert('please log in to access /protected');
     }
     getUser();

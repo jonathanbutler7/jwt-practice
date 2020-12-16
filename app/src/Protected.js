@@ -1,10 +1,13 @@
 import React from 'react';
-
+import { useHistory } from 'react-router-dom';
 export default function Protected() {
+  const history = useHistory();
+
   function removeToken() {
     localStorage.removeItem('cool-jwt');
-    window.location.href = '/login';
+    history.push('/login');
   }
+
   return (
     <div>
       <h1>i am protected</h1>
