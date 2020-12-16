@@ -9,7 +9,7 @@ export default function Login() {
 
   async function submit(e) {
     e.preventDefault();
-    const url = 'http://localhost:9000/login/getToken';
+    const url = `${process.env.SERVER}/login/getToken`;
     const body = { email, password };
     try {
       const response = await axios.post(url, body);
@@ -20,7 +20,7 @@ export default function Login() {
       console.error(error);
     }
   }
-  console.log(email);
+  
   return (
     <div>
       <h5>Login</h5>

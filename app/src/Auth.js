@@ -7,7 +7,7 @@ export default function AuthF(props) {
   const [user, setUser] = useState(undefined);
   const jwt = getJwt();
   const history = useHistory();
-  
+
   useEffect(() => {
     if (!jwt) {
       history.push('/login');
@@ -19,7 +19,7 @@ export default function AuthF(props) {
   async function getUser() {
     var config = {
       method: 'get',
-      url: 'http://localhost:9000/login/getUser',
+      url: `${process.env.SERVER}/login/getUser`,
       headers: {
         Authorization: `bearer ${jwt}`,
       },
@@ -28,7 +28,7 @@ export default function AuthF(props) {
       const response = await axios(config);
       setUser(response.data.email);
     } catch (error) {
-      console.error('frig', error);
+      return error;
     }
   }
   return (

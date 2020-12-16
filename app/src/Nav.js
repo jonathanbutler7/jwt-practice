@@ -22,6 +22,9 @@ export default function Nav() {
       <h1>
         <Link to='/protected'>Protected</Link>
       </h1>
+      <h1>
+        <Link to='/protected2'>Protected2</Link>
+      </h1>
     </nav>
   );
 }
